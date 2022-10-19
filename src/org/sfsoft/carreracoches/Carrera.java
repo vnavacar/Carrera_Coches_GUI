@@ -131,19 +131,26 @@ public class Carrera(int caballos, JProgressBar[] barras ) {
 	/**
 	 * Create the application.
 	 */
-	public Carrera() {
-		initialize();
+	public Carrera(int caballos) {
+		initialize(caballos);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initialize(int caballos) {
 		frmCarrea = new JFrame();
+		JprogressBar[] barras = new JProgressBar[caballos];
+		Jlabel[] labels = new Jlabel[caballos];
 		frmCarrea.setTitle("Carrera");
-		frmCarrea.setBounds(100, 100, 450, 300);
+		frmCarrea.setBounds(100, 100, 450, 100*caballos);
 		frmCarrea.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmCarrea.getContentPane().setLayout(null);
+		for(int i = 0; i < caballos; i++){
+			barras[i] = new JProgressBar();
+			barras[i].setBounds(10, 11+100*i, 414, 14);
+			frmCarrea.getContentPane().add(barras[i]);
+		}
 		frmCarrea.getContentPane().add(getPbCoche1());
 		frmCarrea.getContentPane().add(getPbCoche2());
 		frmCarrea.getContentPane().add(getLblNewLabel());
