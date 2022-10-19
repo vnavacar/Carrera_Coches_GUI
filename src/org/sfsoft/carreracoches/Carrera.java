@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -17,7 +18,7 @@ import java.util.Scanner;
  * @author Santiago Faci
  * @version curso 2014-2015
 */
-public class Carrera {
+public class Carrera(int caballos) {
 
 	private JFrame frmCarrea;
 	private JProgressBar pbCoche1;
@@ -33,14 +34,38 @@ public class Carrera {
 	private JLabel progresoCoche1;
 
 	private void correr() {
+		Random r = new Random();
 		
 		int distancia = 
 			Integer.parseInt(tfDistancia.getText());
-		
-		final Coche coche1 = new Coche(5, distancia, lbMarcador, "Opel");
-		final Coche coche2 = new Coche(20, distancia, lbMarcador, "Ford");
-		final Coche coche3 = new Coche(30, distancia, lbMarcador, "Seat");
-		
+		new Coche[caballos];
+		for (int i = 0; i < caballos; i++) {
+			Coche[i] = new Coche(r.nextInt(5,30),distancia, lbMarcador, "Caballo: "+i.String());
+		}
+		for (int i = 0; i < caballos; i++) {
+			Coche[i].addPropertyChangeListener(new PropertyChangeListener() {
+				
+				@Override
+				public void propertyChange(PropertyChangeEvent evt) {
+					if (evt.getPropertyName().equals("progress")) {
+						int progreso = (Integer) evt.getNewValue();
+						
+					}
+					else if (evt.getPropertyName().equals("ganador")) {
+						String ganador = (String) evt.getNewValue();
+						lbMarcador.setText(ganador + " ha ganado");
+						for(j = 0; j < caballos; j++){
+							Coche[j].cancel(true);
+						}
+					}
+				}
+			});//?
+			Coche[i].execute();
+		}
+		//final Coche coche1 = new Coche(5, distancia, lbMarcador, "Opel");
+		//final Coche coche2 = new Coche(20, distancia, lbMarcador, "Ford");
+		//final Coche coche3 = new Coche(30, distancia, lbMarcador, "Seat");
+		/* 
 		coche1.addPropertyChangeListener(new PropertyChangeListener() {
 			@Override
 			public void propertyChange(PropertyChangeEvent event) {
@@ -82,7 +107,7 @@ public class Carrera {
 		
 		coche1.execute();
 		coche2.execute();
-		coche3.execute();
+		coche3.execute();*/
 	}
 	
 	/**
