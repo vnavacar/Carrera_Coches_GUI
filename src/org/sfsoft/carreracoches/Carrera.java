@@ -18,7 +18,7 @@ import java.util.Scanner;
  * @author Santiago Faci
  * @version curso 2014-2015
 */
-public class Carrera(int caballos) {
+public class Carrera(int caballos, JProgressBar[] barras ) {
 
 	private JFrame frmCarrea;
 	private JProgressBar pbCoche1;
